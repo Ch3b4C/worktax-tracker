@@ -2,23 +2,23 @@
 
 import React, { useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Car, Upload, MapPin, Tunnel, CalendarDays, FileSpreadsheet, ShieldCheck, CreditCard, Bell, ChevronRight, CheckCircle2, AlertTriangle } from 'lucide-react';
+import { Car, Upload, MapPin, Route, CalendarDays, FileSpreadsheet, ShieldCheck, CreditCard, Bell, ChevronRight, CheckCircle2, AlertTriangle } from 'lucide-react';
 
 export default function WorkTaxTrackerPremium() {
   const [autoPay, setAutoPay] = useState(true);
-  const tunnelRate = useMemo(() => (autoPay ? 'Peak £6.50 / Off-peak £2.50' : 'Manual payment rate'), [autoPay]);
+  const Rate = useMemo(() => (autoPay ? 'Peak £6.50 / Off-peak £2.50' : 'Manual payment rate'), [autoPay]);
 
   const stats = [
     { label: 'Monthly total', value: '£248.50', icon: CreditCard },
     { label: 'Congestion Charge', value: '£180.00', icon: MapPin },
-    { label: 'Tunnel charges', value: '£68.50', icon: Tunnel },
+    { label: 'Route charges', value: '£68.50', icon: Route },
     { label: 'Days worked', value: '17', icon: CalendarDays },
   ];
 
   const workDays = [
-    { date: '07 May', postcode: 'E16', cc: 'Inside CC', tunnel: 'Blackwall', direction: 'SE → E', charge: '£6.50', status: 'Verified' },
-    { date: '08 May', postcode: 'SE10', cc: 'Outside CC', tunnel: 'Silvertown', direction: 'E → SE', charge: '£2.50', status: 'Review' },
-    { date: '09 May', postcode: 'W1', cc: 'Inside CC', tunnel: 'None', direction: '-', charge: '£15.00', status: 'Verified' },
+    { date: '07 May', postcode: 'E16', cc: 'Inside CC', Route: 'Blackwall', direction: 'SE → E', charge: '£6.50', status: 'Verified' },
+    { date: '08 May', postcode: 'SE10', cc: 'Outside CC', Route: 'Silvertown', direction: 'E → SE', charge: '£2.50', status: 'Review' },
+    { date: '09 May', postcode: 'W1', cc: 'Inside CC', Route: 'None', direction: '-', charge: '£15.00', status: 'Verified' },
   ];
 
   return (
@@ -42,12 +42,12 @@ export default function WorkTaxTrackerPremium() {
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
               <div className="space-y-4">
                 <div className="inline-flex items-center gap-2 rounded-full border border-emerald-400/20 bg-emerald-400/10 px-4 py-2 text-sm text-emerald-200"><ShieldCheck className="h-4 w-4" /> System ready for tracking</div>
-                <div><h2 className="text-4xl md:text-5xl font-bold tracking-tight">Track work days, CC and tunnel charges automatically.</h2><p className="mt-4 max-w-2xl text-slate-300">Upload route screenshots, extract postcodes, detect Congestion Charge status, estimate Blackwall/Silvertown charges and export monthly reports.</p></div>
+                <div><h2 className="text-4xl md:text-5xl font-bold tracking-tight">Track work days, CC and  charges automatically.</h2><p className="mt-4 max-w-2xl text-slate-300">Upload route screenshots, extract postcodes, detect Congestion Charge status, estimate Blackwall/Silvertown charges and export monthly reports.</p></div>
               </div>
               <div className="min-w-56 rounded-3xl border border-white/10 bg-slate-950/50 p-5">
                 <p className="text-sm text-slate-400">Vehicle profile</p><p className="mt-1 text-lg font-semibold">Large Van</p>
                 <div className="mt-4 flex items-center justify-between gap-4 rounded-2xl bg-white/5 p-3"><span className="text-sm">Auto Pay</span><button onClick={() => setAutoPay(!autoPay)} className={`relative h-8 w-14 rounded-full transition ${autoPay ? 'bg-emerald-500' : 'bg-slate-700'}`}><span className={`absolute top-1 h-6 w-6 rounded-full bg-white transition ${autoPay ? 'left-7' : 'left-1'}`} /></button></div>
-                <p className="mt-3 text-xs text-slate-400">{tunnelRate}</p>
+                <p className="mt-3 text-xs text-slate-400">{Rate}</p>
               </div>
             </div>
           </div>
@@ -71,7 +71,7 @@ export default function WorkTaxTrackerPremium() {
 
           <div className="rounded-[2rem] border border-white/10 bg-white/10 backdrop-blur-xl shadow-2xl p-6">
             <div className="flex items-center justify-between gap-4 mb-5"><div><h3 className="text-xl font-semibold">Recent work days</h3><p className="text-sm text-slate-400">OCR postcode detection + charge estimate</p></div><button className="rounded-2xl border border-white/10 bg-white/5 text-white hover:bg-white/10 px-4 py-2 flex items-center"><FileSpreadsheet className="h-4 w-4 mr-2" /> Export</button></div>
-            <div className="space-y-3">{workDays.map((day) => <div key={`${day.date}-${day.postcode}`} className="grid md:grid-cols-7 gap-3 items-center rounded-3xl border border-white/10 bg-slate-950/40 p-4 text-sm"><div className="font-semibold">{day.date}</div><div>{day.postcode}</div><div className="text-slate-300">{day.cc}</div><div className="text-slate-300">{day.tunnel}</div><div className="text-slate-300">{day.direction}</div><div className="font-semibold">{day.charge}</div><div className="flex justify-end"><span className={`inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs ${day.status === 'Verified' ? 'bg-emerald-400/10 text-emerald-200' : 'bg-amber-400/10 text-amber-200'}`}>{day.status === 'Verified' ? <CheckCircle2 className="h-3 w-3" /> : <AlertTriangle className="h-3 w-3" />}{day.status}</span></div></div>)}</div>
+            <div className="space-y-3">{workDays.map((day) => <div key={`${day.date}-${day.postcode}`} className="grid md:grid-cols-7 gap-3 items-center rounded-3xl border border-white/10 bg-slate-950/40 p-4 text-sm"><div className="font-semibold">{day.date}</div><div>{day.postcode}</div><div className="text-slate-300">{day.cc}</div><div className="text-slate-300">{day.}</div><div className="text-slate-300">{day.direction}</div><div className="font-semibold">{day.charge}</div><div className="flex justify-end"><span className={`inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs ${day.status === 'Verified' ? 'bg-emerald-400/10 text-emerald-200' : 'bg-amber-400/10 text-amber-200'}`}>{day.status === 'Verified' ? <CheckCircle2 className="h-3 w-3" /> : <AlertTriangle className="h-3 w-3" />}{day.status}</span></div></div>)}</div>
           </div>
         </section>
       </div>
